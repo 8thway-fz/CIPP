@@ -13,10 +13,18 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-      - run: |
+      - name: Configure git identity
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote add upstream https://github.com/KelvinTegelaar/CIPP.git
-          git fetch upstream
-          git merge upstream/main --no-edit --allow-unrelated-histories
-          git push
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/KelvinTegelaar/CIPP.git
+      - name: Fetch upstream
+        run: git fetch upstream
+        timeout-minutes: 5
+      - name: Merge upstream
+        run: git merge upstream/main --no-edit --allow-unrelated-histories
+        timeout-minutes: 5
+      - name: Push changes
+        run: git push
+        timeout-minutes: 5
