@@ -18,5 +18,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git remote add upstream https://github.com/KelvinTegelaar/CIPP.git
           git fetch upstream
-          git merge upstream/master --no-edit --allow-unrelated-histories
+          git merge upstream/main --no-edit --allow-unrelated-histories
           git push
