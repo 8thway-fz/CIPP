@@ -3,15 +3,18 @@ on:
   schedule:
     - cron: '0 4 * * 1'  # Jeden Montag um 04:00 UTC
   workflow_dispatch:
-
 jobs:
   sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
       - run: |
+          git remote add upstream https://github.com/KelvinTegelaar/CIPP-API.git
           git fetch upstream
-          git merge upstream/main --no-edit
+          git merge upstream/master --no-edit
           git push
